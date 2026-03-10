@@ -1,16 +1,14 @@
 from fastapi import FastAPI
+from .db import Base, engine
+from .routers import flights, airports
 
 app = FastAPI(title="Airport Delay API")
 
-@app.get("/")
-def home():
-    return {"message": "Airport Delay API is running"}
-
-from .db import engine, Base
-from . import models
-
 Base.metadata.create_all(bind=engine)
 
-from .routers import flights
-
 app.include_router(flights.router)
+app.include_router(airports.router)
+
+@app.get("/")
+def home():
+    return {"message": "Airport Delay API running"}
