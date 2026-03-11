@@ -1,26 +1,28 @@
 from fastapi import APIRouter, HTTPException
-from sqlalchemy.orm import Session
+from datetime import datetime
 from ..db import SessionLocal
 from ..models import Flight
 
 router = APIRouter()
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-# POST /flights
 @router.post("/flights")
-def create_flight(flight_number: str, origin: str, destination: str):
+def create_flight(
+    flight_number: str,
+    origin: str,
+    destination: str,
+    scheduled_departure: datetime,
+    actual_departure: datetime | None = None,
+    status: str = "on_time"
+):
     db = SessionLocal()
 
     flight = Flight(
         flight_number=flight_number,
         origin=origin,
-        destination=destination
+        destination=destination,
+        scheduled_departure=scheduled_departure,
+        actual_departure=actual_departure,
+        status=status
     )
 
     db.add(flight)
@@ -30,10 +32,8 @@ def create_flight(flight_number: str, origin: str, destination: str):
     return flight
 
 
-# GET /flights/{id}
 @router.get("/flights/{flight_id}")
 def get_flight(flight_id: int):
-
     db = SessionLocal()
 
     flight = db.query(Flight).filter(Flight.id == flight_id).first()
@@ -44,10 +44,16 @@ def get_flight(flight_id: int):
     return flight
 
 
-# PUT /flights/{id}
 @router.put("/flights/{flight_id}")
-def update_flight(flight_id: int, flight_number: str, origin: str, destination: str):
-
+def update_flight(
+    flight_id: int,
+    flight_number: str,
+    origin: str,
+    destination: str,
+    scheduled_departure: datetime,
+    actual_departure: datetime | None = None,
+    status: str = "on_time"
+):
     db = SessionLocal()
 
     flight = db.query(Flight).filter(Flight.id == flight_id).first()
@@ -58,16 +64,18 @@ def update_flight(flight_id: int, flight_number: str, origin: str, destination: 
     flight.flight_number = flight_number
     flight.origin = origin
     flight.destination = destination
+    flight.scheduled_departure = scheduled_departure
+    flight.actual_departure = actual_departure
+    flight.status = status
 
     db.commit()
+    db.refresh(flight)
 
     return flight
 
 
-# DELETE /flights/{id}
 @router.delete("/flights/{flight_id}")
 def delete_flight(flight_id: int):
-
     db = SessionLocal()
 
     flight = db.query(Flight).filter(Flight.id == flight_id).first()

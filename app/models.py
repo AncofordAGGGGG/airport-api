@@ -10,3 +10,4 @@ class Flight(Base):
     destination = Column(String)
     scheduled_departure = Column(DateTime)
     actual_departure = Column(DateTime)
+    status = Column(String, default="on_time")
