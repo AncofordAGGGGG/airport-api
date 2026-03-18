@@ -58,13 +58,13 @@ https://www.kaggle.com/datasets/shubhamsingh42/flight-delay-dataset-2018-2024?re
 
 It contains real flight-level records including:
 
-Origin and destination airports
+- Origin and destination airports
 
-Scheduled and actual departure times
+- Scheduled and actual departure times
 
-Delay durations
+- Delay durations
 
-Flight numbers
+- Flight numbers
 
 This dataset enables realistic delay analysis and airport connectivity insights.
 
@@ -94,61 +94,61 @@ PYTHONPATH=. python scripts/import_flights.py
 ```
 ### Notes
 
-The dataset file (~275MB) is excluded from GitHub to comply with file size limits.
+- The dataset file (~275MB) is excluded from GitHub to comply with file size limits.
 
-Only a subset of the dataset (e.g. 30,000–50,000 rows) is recommended for performance during development.
+- Only a subset of the dataset (e.g. 30,000–50,000 rows) is recommended for performance during development.
 
-The import script automatically:
+- The import script automatically:
 
-converts time fields into datetime format
+ - converts time fields into datetime format
 
-determines flight status (delayed or on_time) based on delay minutes
+ - determines flight status (delayed or on_time) based on delay minutes
 
 ---
 
-##API Endpoints
+## API Endpoints
 
 Flights CRUD
 
-- POST /flights
+- `POST /flights`
 
-- GET /flights/{flight_id}
+- `GET /flights/{flight_id}`
 
-- PUT /flights/{flight_id}
+- `PUT /flights/{flight_id}`
 
-- DELETE /flights/{flight_id}
+- `DELETE /flights/{flight_id}`
 
 ---
 
-##Airport Connectivity
+## Airport Connectivity
 
-GET /airports/{iata}/destinations
+`GET /airports/{iata}/destinations`
 
 Returns all reachable destinations from a given airport.
 
 ---
 
-##Delay Analytics
+## Delay Analytics
 
-###1. Delay Rate
-GET /analytics/delay-rate?origin=XXX
+### 1. Delay Rate
+`GET /analytics/delay-rate?origin=XXX`
 
 Returns:
 
-total flights
+- total flights
 
-delayed flights
+- delayed flights
 
-delay rate
+- delay rate
 
-###2. Delay by Hour
-GET /analytics/delay-by-hour?origin=XXX
+### 2. Delay by Hour
+`GET /analytics/delay-by-hour?origin=XXX`
 
 Returns delay statistics grouped by departure hour.
 
 ---
 
-##Parameters
+## Parameters
 
 Some endpoints accept query parameters:
 
@@ -156,7 +156,7 @@ origin (string): IATA airport code (e.g. ATL, LAX, JFK)
 
 ---
 
-##Response Format
+## Response Format
 
 All responses are returned in JSON format.
 
@@ -171,36 +171,37 @@ Example:
 ```
 ---
 
-##Error Handling
+## Error Handling
 
 The API returns standard HTTP status codes:
 
-200 OK – request successful
+- 200 OK – request successful
 
-404 Not Found – resource not found
+- 404 Not Found – resource not found
 
-500 Internal Server Error – server error
+- 500 Internal Server Error – server error
 
 ---
 
-##Data Processing
+## Data Processing
 
 The dataset is imported into a SQLite database using a custom script:
 
+``` bash
 PYTHONPATH=. python scripts/import_flights.py
-
+```
 During import:
 
-Time fields are converted to datetime format
+- Time fields are converted to datetime format
 
 Delay minutes are used to determine flight status:
 
-delayed
+- delayed
 
-on_time
+- on_time
 
 ---
 
-#Author
+# Author
 
 Mingxuan Zhang
