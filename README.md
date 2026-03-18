@@ -128,6 +128,23 @@ Returns all reachable destinations from a given airport.
 
 ---
 
+## Authentication
+
+This API uses a simple API key authentication mechanism.
+
+To access protected endpoints, include the following header:
+
+`X-API-Key: 1122332211`
+
+
+If the API key is missing or invalid, the server will return:
+
+`401 Unauthorized`
+
+Currently, authentication is applied to analytics endpoints.
+
+---
+
 ## Delay Analytics
 
 ### 1. Delay Rate

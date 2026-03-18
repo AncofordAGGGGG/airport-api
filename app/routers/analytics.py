@@ -1,10 +1,11 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from ..db import SessionLocal
 from ..models import Flight
+from app.auth import verify_api_key
 
 router = APIRouter()
 
-@router.get("/analytics/delay-rate")
+@router.get("/analytics/delay-rate", dependencies=[Depends(verify_api_key)])
 def get_delay_rate(origin: str = None):
     db = SessionLocal()
 
@@ -29,7 +30,7 @@ def get_delay_rate(origin: str = None):
         "delay_rate": delay_rate
     }
 
-@router.get("/analytics/delay-by-hour")
+@router.get("/analytics/delay-by-hour", dependencies=[Depends(verify_api_key)])
 def get_delay_by_hour(origin: str = None):
     db = SessionLocal()
 
