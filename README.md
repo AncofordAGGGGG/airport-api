@@ -1,2 +1,168 @@
-# airport-api
-COMP3011_Coursework1
+# Airport Delay Analytics API
+
+"COMP3011_Coursework1"
+
+A RESTful API built with FastAPI for managing flight data, analysing delay patterns, and exploring airport connectivity using real-world flight datasets.
+
+---
+
+## Overview
+
+This project implements a data-driven web API that allows users to:
+
+- Manage flight records (CRUD operations)
+- Discover reachable destinations from a given airport
+- Analyse flight delay rates
+- Analyse delay patterns by departure hour
+
+The system is powered by real-world US flight data (2018–2024), ensuring realistic and meaningful analytics.
+
+---
+
+## Tech Stack
+
+- Python
+- FastAPI
+- SQLite
+- SQLAlchemy
+
+---
+
+## How to Run
+
+### 1. Create virtual environment
+
+```bash
+
+python -m venv venv
+source venv/bin/activate
+
+###2. Install dependencies
+pip install -r requirements.txt
+
+###3. Run the API
+python -m uvicorn app.main:app --reload
+
+###4. Open API documentation
+http://127.0.0.1:8000/docs
+
+
+---
+
+## Data Source
+
+The dataset is based on the US DOT On-Time Performance dataset (2018–2024). 
+"https://www.kaggle.com/datasets/shubhamsingh42/flight-delay-dataset-2018-2024?resource=download"
+
+It contains real flight-level records including:
+
+Origin and destination airports
+
+Scheduled and actual departure times
+
+Delay durations
+
+Flight numbers
+
+This dataset enables realistic delay analysis and airport connectivity insights.
+
+---
+
+##API Endpoints
+
+Flights CRUD
+
+- POST /flights
+
+- GET /flights/{flight_id}
+
+- PUT /flights/{flight_id}
+
+- DELETE /flights/{flight_id}
+
+---
+
+##Airport Connectivity
+
+GET /airports/{iata}/destinations
+
+Returns all reachable destinations from a given airport.
+
+---
+
+##Delay Analytics
+
+###1. Delay Rate
+GET /analytics/delay-rate?origin=XXX
+
+Returns:
+
+total flights
+
+delayed flights
+
+delay rate
+
+###2. Delay by Hour
+GET /analytics/delay-by-hour?origin=XXX
+
+Returns delay statistics grouped by departure hour.
+
+---
+
+##Parameters
+
+Some endpoints accept query parameters:
+
+origin (string): IATA airport code (e.g. ATL, LAX, JFK)
+
+---
+
+##Response Format
+
+All responses are returned in JSON format.
+
+Example:
+
+{
+  "origin": "ATL",
+  "total_flights": 300,
+  "delayed_flights": 120,
+  "delay_rate": 0.4
+}
+
+---
+
+##Error Handling
+
+The API returns standard HTTP status codes:
+
+200 OK – request successful
+
+404 Not Found – resource not found
+
+500 Internal Server Error – server error
+
+---
+
+##Data Processing
+
+The dataset is imported into a SQLite database using a custom script:
+
+PYTHONPATH=. python scripts/import_flights.py
+
+During import:
+
+Time fields are converted to datetime format
+
+Delay minutes are used to determine flight status:
+
+delayed
+
+on_time
+
+---
+
+#Author
+
+Mingxuan Zhang
