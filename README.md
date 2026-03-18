@@ -33,17 +33,19 @@ The system is powered by real-world US flight data (2018–2024), ensuring reali
 ### 1. Create virtual environment
 
 ```bash
-
 python -m venv venv
 source venv/bin/activate
-
-###2. Install dependencies
+```
+### 2. Install dependencies
+```bash
 pip install -r requirements.txt
-
-###3. Run the API
+```
+### 3. Run the API
+```bash
 python -m uvicorn app.main:app --reload
+```
+### 4. Open API documentation
 
-###4. Open API documentation
 http://127.0.0.1:8000/docs
 
 
@@ -52,7 +54,7 @@ http://127.0.0.1:8000/docs
 ## Data Source
 
 The dataset is based on the US DOT On-Time Performance dataset (2018–2024). 
-"https://www.kaggle.com/datasets/shubhamsingh42/flight-delay-dataset-2018-2024?resource=download"
+https://www.kaggle.com/datasets/shubhamsingh42/flight-delay-dataset-2018-2024?resource=download
 
 It contains real flight-level records including:
 
@@ -79,17 +81,18 @@ Due to GitHub file size limitations, the dataset is **not included in the reposi
 1. Download the dataset manually (e.g. from Kaggle or provided source)
 
 2. Place the CSV file in the project root directory:
+```
 airport-api/
 ├── app/
 ├── scripts/
 ├── flight_data_2018_2024.csv ← place it here
-
+```
 3. Run the import script:
 
 ```bash
 PYTHONPATH=. python scripts/import_flights.py
-
-###Notes
+```
+### Notes
 
 The dataset file (~275MB) is excluded from GitHub to comply with file size limits.
 
@@ -158,14 +161,14 @@ origin (string): IATA airport code (e.g. ATL, LAX, JFK)
 All responses are returned in JSON format.
 
 Example:
-
+```json
 {
   "origin": "ATL",
   "total_flights": 300,
   "delayed_flights": 120,
   "delay_rate": 0.4
 }
-
+```
 ---
 
 ##Error Handling
