@@ -1,2 +1,6 @@
+flight_data_2018_2024.csv
+*.csv
+airport.db
+venv/
 __pycache__/
 *.pyc
