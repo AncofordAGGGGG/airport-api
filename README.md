@@ -25,6 +25,8 @@ The system is powered by real-world US flight data (2018–2024), ensuring reali
 - FastAPI
 - SQLite
 - SQLAlchemy
+- HTTPX
+- Pytest
 
 ---
 
@@ -224,6 +226,18 @@ Delay minutes are used to determine flight status:
 - delayed
 
 - on_time
+
+---
+
+## Testing
+
+Basic API tests are implemented using pytest.
+
+To run tests:
+
+```bash
+pytest
+```
 
 ---
 
