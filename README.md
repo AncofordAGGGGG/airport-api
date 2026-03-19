@@ -106,6 +106,14 @@ PYTHONPATH=. python scripts/import_flights.py
 
 ---
 
+## API Documentation
+
+The full API documentation is available as a PDF:
+
+[Download API Documentation](docs/api_documentation.pdf)
+
+---
+
 ## API Endpoints
 
 Flights CRUD
