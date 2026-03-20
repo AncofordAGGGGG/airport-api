@@ -236,7 +236,7 @@ Basic API tests are implemented using pytest.
 To run tests:
 
 ```bash
-pytest
+ PYTHONPATH=. pytest
 ```
 
 ---
