@@ -45,7 +45,7 @@ def parse_hhmm(value):
 
 def build_datetime(date_str, hhmm_value):
     """
-    date_str: 2024-03-01 或 20240301
+    date_str: 2024-03-01 or 20240301
     hhmm_value: 930 / 1545
     """
     if not date_str:
